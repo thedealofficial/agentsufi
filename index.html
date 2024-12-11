@@ -75,6 +75,52 @@
         .parallax .planet {
             animation: float 8s infinite ease-in-out;
         }
+        .scroll-effects {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        .scroll-effects .card {
+            width: 200px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transform: scale(0.8);
+            transition: transform 0.5s;
+        }
+        .scroll-effects .card:hover {
+            transform: scale(1);
+        }
+        .interactive-planet {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #00ff99, #0066cc);
+            position: relative;
+            margin: 20px auto;
+            animation: orbit 10s infinite linear;
+        }
+        @keyframes orbit {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .interactive-planet:hover {
+            animation-play-state: paused;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -91,9 +137,18 @@
     <section id="journey">
         <h2 class="fade-in">My Space Journey</h2>
         <p class="fade-in">From stargazing as a child to exploring astrophysics and programming, my journey has been a quest to uncover the mysteries of the universe.</p>
-        <div id="planet-container">
-            <!-- Dynamically Added Planets -->
+        <div class="scroll-effects">
+            <div class="card">Astrophysics</div>
+            <div class="card">Programming</div>
+            <div class="card">Stargazing</div>
+            <div class="card">Space Missions</div>
         </div>
+    </section>
+
+    <section id="interactive">
+        <h2 class="fade-in">Interactive Planet</h2>
+        <div class="interactive-planet"></div>
+        <p class="fade-in">Hover over the planet to pause its orbit!</p>
     </section>
 
     <section id="contact">
@@ -113,31 +168,6 @@
         }, { threshold: 0.1 });
 
         fadeElements.forEach(el => observer.observe(el));
-
-        const planetContainer = document.getElementById('planet-container');
-
-        // Generate 1000 overlapping planets dynamically
-        for (let i = 0; i < 1000; i++) {
-            const planet = document.createElement('div');
-            planet.className = 'planet';
-
-            const size = Math.random() * 50 + 20; // Random size between 20px and 70px
-            const topPos = Math.random() * 200 - 100; // Random position within range
-            const leftPos = Math.random() * 100 - 50; // Random position within range
-
-            planet.style.width = `${size}px`;
-            planet.style.height = `${size}px`;
-            planet.style.top = `${topPos}%`;
-            planet.style.left = `${leftPos}%`;
-            planet.style.background = `radial-gradient(circle, ${randomColor()}, ${randomColor()})`;
-
-            planetContainer.appendChild(planet);
-        }
-
-        function randomColor() {
-            const colors = ['#ffaa00', '#00d2ff', '#ff0099', '#0072ff', '#ff5500', '#ffaa99'];
-            return colors[Math.floor(Math.random() * colors.length)];
-        }
     </script>
 </body>
 </html>
