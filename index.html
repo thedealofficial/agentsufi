@@ -47,6 +47,10 @@
             position: absolute;
             animation: float 4s infinite ease-in-out;
         }
+        .planet.large {
+            width: 150px;
+            height: 150px;
+        }
         @keyframes float {
             0%, 100% {
                 transform: translateY(-10px);
@@ -64,24 +68,34 @@
             opacity: 1;
             transform: translateY(0);
         }
+        .parallax {
+            position: relative;
+            z-index: -1;
+        }
+        .parallax .planet {
+            animation: float 8s infinite ease-in-out;
+        }
     </style>
 </head>
 <body>
     <header>Welcome to My Space Journey</header>
 
     <section id="about">
-        <div class="planet" style="top: 20%; left: 10%;"></div>
-        <div class="planet" style="top: 70%; right: 15%; background: radial-gradient(circle, #00d2ff, #0072ff);"></div>
+        <div class="planet parallax" style="top: 10%; left: 5%;"></div>
+        <div class="planet large parallax" style="top: 50%; right: 10%; background: radial-gradient(circle, #00d2ff, #0072ff);"></div>
+        <div class="planet parallax" style="bottom: 20%; left: 40%; background: radial-gradient(circle, #ff00cc, #ff0099);"></div>
         <h1 class="fade-in">About Me</h1>
         <p class="fade-in">Hello! I'm an enthusiast of space and technology, fascinated by the cosmos and the endless possibilities it holds.</p>
     </section>
 
     <section id="journey">
+        <div class="planet large parallax" style="top: 30%; left: 15%;"></div>
         <h2 class="fade-in">My Space Journey</h2>
         <p class="fade-in">From stargazing as a child to exploring astrophysics and programming, my journey has been a quest to uncover the mysteries of the universe.</p>
     </section>
 
     <section id="contact">
+        <div class="planet parallax" style="top: 5%; right: 15%; background: radial-gradient(circle, #ff5500, #ffaa00);"></div>
         <h2 class="fade-in">Contact Me</h2>
         <p class="fade-in">Feel free to reach out at: <a href="mailto:youremail@example.com">youremail@example.com</a></p>
     </section>
@@ -98,6 +112,16 @@
         }, { threshold: 0.1 });
 
         fadeElements.forEach(el => observer.observe(el));
+
+        const planets = document.querySelectorAll('.parallax .planet');
+
+        window.addEventListener('scroll', () => {
+            const scrollPos = window.scrollY;
+            planets.forEach(planet => {
+                const speed = parseFloat(getComputedStyle(planet).getPropertyValue('--speed') || 0.2);
+                planet.style.transform = `translateY(${scrollPos * speed}px)`;
+            });
+        });
     </script>
 </body>
 </html>
