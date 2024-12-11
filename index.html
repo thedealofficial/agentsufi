@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Space Biography</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(120deg, #000428, #004e92);
+            color: white;
+            overflow-x: hidden;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1rem;
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            z-index: 10;
+        }
+        section {
+            padding: 100px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        section:nth-child(odd) {
+            background: rgba(0, 0, 0, 0.8);
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .planet {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, #ffaa00, #ff5500);
+            border-radius: 50%;
+            position: absolute;
+            animation: float 4s infinite ease-in-out;
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(-10px);
+            }
+            50% {
+                transform: translateY(10px);
+            }
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s, transform 1s;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>Welcome to My Space Journey</header>
+
+    <section id="about">
+        <div class="planet" style="top: 20%; left: 10%;"></div>
+        <div class="planet" style="top: 70%; right: 15%; background: radial-gradient(circle, #00d2ff, #0072ff);"></div>
+        <h1 class="fade-in">About Me</h1>
+        <p class="fade-in">Hello! I'm an enthusiast of space and technology, fascinated by the cosmos and the endless possibilities it holds.</p>
+    </section>
+
+    <section id="journey">
+        <h2 class="fade-in">My Space Journey</h2>
+        <p class="fade-in">From stargazing as a child to exploring astrophysics and programming, my journey has been a quest to uncover the mysteries of the universe.</p>
+    </section>
+
+    <section id="contact">
+        <h2 class="fade-in">Contact Me</h2>
+        <p class="fade-in">Feel free to reach out at: <a href="mailto:youremail@example.com">youremail@example.com</a></p>
+    </section>
+
+    <script>
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
