@@ -89,13 +89,14 @@
     </section>
 
     <section id="journey">
-        <div class="planet large parallax" style="top: 30%; left: 15%;"></div>
         <h2 class="fade-in">My Space Journey</h2>
         <p class="fade-in">From stargazing as a child to exploring astrophysics and programming, my journey has been a quest to uncover the mysteries of the universe.</p>
+        <div id="planet-container">
+            <!-- Dynamically Added Planets -->
+        </div>
     </section>
 
     <section id="contact">
-        <div class="planet parallax" style="top: 5%; right: 15%; background: radial-gradient(circle, #ff5500, #ffaa00);"></div>
         <h2 class="fade-in">Contact Me</h2>
         <p class="fade-in">Feel free to reach out at: <a href="mailto:youremail@example.com">youremail@example.com</a></p>
     </section>
@@ -113,15 +114,30 @@
 
         fadeElements.forEach(el => observer.observe(el));
 
-        const planets = document.querySelectorAll('.parallax .planet');
+        const planetContainer = document.getElementById('planet-container');
 
-        window.addEventListener('scroll', () => {
-            const scrollPos = window.scrollY;
-            planets.forEach(planet => {
-                const speed = parseFloat(getComputedStyle(planet).getPropertyValue('--speed') || 0.2);
-                planet.style.transform = `translateY(${scrollPos * speed}px)`;
-            });
-        });
+        // Generate 1000 overlapping planets dynamically
+        for (let i = 0; i < 1000; i++) {
+            const planet = document.createElement('div');
+            planet.className = 'planet';
+
+            const size = Math.random() * 50 + 20; // Random size between 20px and 70px
+            const topPos = Math.random() * 200 - 100; // Random position within range
+            const leftPos = Math.random() * 100 - 50; // Random position within range
+
+            planet.style.width = `${size}px`;
+            planet.style.height = `${size}px`;
+            planet.style.top = `${topPos}%`;
+            planet.style.left = `${leftPos}%`;
+            planet.style.background = `radial-gradient(circle, ${randomColor()}, ${randomColor()})`;
+
+            planetContainer.appendChild(planet);
+        }
+
+        function randomColor() {
+            const colors = ['#ffaa00', '#00d2ff', '#ff0099', '#0072ff', '#ff5500', '#ffaa99'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
     </script>
 </body>
 </html>
